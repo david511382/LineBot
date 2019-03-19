@@ -13,6 +13,6 @@ namespace LineBot.Models.ReplyMessage
         public string ReplyToken;
 
         [JsonProperty("messages")]
-        public WebhookEvents.Message.Text.Message[] Messages;
+        public WebhookEvents.Message.Message[] Messages;
     }
 }

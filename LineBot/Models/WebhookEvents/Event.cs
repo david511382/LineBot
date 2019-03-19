@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LineBot.Models.WebhookEvents.Message
+namespace LineBot.Models.WebhookEvents
 {
     public class Event
     {
@@ -27,6 +27,6 @@ namespace LineBot.Models.WebhookEvents.Message
 
         //Object containing the contents of the message. Message types include:
         [JsonProperty("message")]
-        public Text.Message Message;
+        public Message.Message Message;
     }
 }

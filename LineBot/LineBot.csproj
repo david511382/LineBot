@@ -44,14 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\Reflection\MessageEventConverter.cs" />
+    <Compile Include="Helper\Reflection\WebhookEventConverter.cs" />
+    <Compile Include="Helper\Reflection\MessageConverter.cs" />
     <Compile Include="Models\MulticastMessage\Request.cs" />
     <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\PushMessage\Request.cs" />
     <Compile Include="Models\WebhookEvents\EventRequest.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Audio\Audio.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Location\Location.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Media\Media.cs" />
     <Compile Include="Models\WebhookEvents\Message\Message.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Sticker\Sticker.cs" />
     <Compile Include="Models\WebhookEvents\Message\Text\Text.cs" />
     <Compile Include="Models\WebhookEvents\Source.cs" />
-    <Compile Include="Models\WebhookEvents\Message\Event.cs" />
+    <Compile Include="Models\WebhookEvents\Event.cs" />
     <Compile Include="Models\ReplyMessage\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRequestHelper.cs" />
@@ -63,12 +70,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\WebhookEvents\Message\Audio\" />
-    <Folder Include="Models\WebhookEvents\Message\File\" />
-    <Folder Include="Models\WebhookEvents\Message\Image\" />
-    <Folder Include="Models\WebhookEvents\Message\Location\" />
-    <Folder Include="Models\WebhookEvents\Message\Sticker\" />
-    <Folder Include="Models\WebhookEvents\Message\Video\" />
+    <Folder Include="Models\WebhookEvents\Message\Flex\" />
+    <Folder Include="Models\WebhookEvents\Message\Imagemap\" />
+    <Folder Include="Models\WebhookEvents\Message\Template\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

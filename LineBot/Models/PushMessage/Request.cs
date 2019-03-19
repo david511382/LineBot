@@ -14,6 +14,6 @@ namespace LineBot.Models.PushMessage
         public string To;
 
         [JsonProperty("messages")]
-        public WebhookEvents.Message.Text.Message[] Messages;
+        public WebhookEvents.Message.Message[] Messages;
     }
 }

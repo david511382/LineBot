@@ -1,6 +1,9 @@
-﻿using LineBot.Models;
+﻿using LineBot.Helper.Reflection;
+using LineBot.Models;
 using LineBot.Models.Profile;
 using LineBot.Models.WebhookEvents;
+using LineBot.Models.WebhookEvents.Message;
+using LineBot.Models.WebhookEvents.Message.Text;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,7 +29,15 @@ namespace LineBot
             body.Read(bodyByte, 0, dataLen);
 
             string bodyStr = Encoding.UTF8.GetString(bodyByte);
-            EventRequest data = JsonConvert.DeserializeObject<EventRequest>(bodyStr);
+            EventRequest data;
+            try
+            {
+                data = JsonConvert.DeserializeObject<EventRequest>(bodyStr, new WebhookEventConverter());
+            }
+            catch
+            {
+                throw new Exception("json convert fail");
+            }
 
             return data;
         }
@@ -40,18 +51,15 @@ namespace LineBot
         }
 
         // POST https://api.line.me/v2/bot/message/reply
-        public string ReplyMessage(string replyToken, string[] msgs, string channelAccessToken)
+        public string ReplyMessage(string replyToken, Message[] msgs, string channelAccessToken)
         {
             Models.ReplyMessage.Request body = new Models.ReplyMessage.Request();
             body.ReplyToken = replyToken;
-            try
-            {
-                body.Messages = Limit5Msg(msgs);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            if (!Is1To5(msgs))
+                throw new Exception("wrong length");
+
+            body.Messages = msgs;
 
             string data = JsonConvert.SerializeObject(body);
             return WebRequestHelper.PostLineApi(LINE_URL + "/message/reply", data, channelAccessToken);
@@ -59,18 +67,15 @@ namespace LineBot
 
         // POST https://api.line.me/v2/bot/message/push
         // to a user, group, or room a
-        public string PushMessage(string targetID, string[] msgs, string channelAccessToken)
+        public string PushMessage(string targetID, Message[] msgs, string channelAccessToken)
         {
             Models.PushMessage.Request body = new Models.PushMessage.Request();
             body.To = targetID;
-            try
-            {
-                body.Messages = Limit5Msg(msgs);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            if (!Is1To5(msgs))
+                throw new Exception("wrong length");
+
+            body.Messages = msgs;
 
             string data = JsonConvert.SerializeObject(body);
             return WebRequestHelper.PostLineApi(LINE_URL + "/message/push", data, channelAccessToken);
@@ -78,18 +83,16 @@ namespace LineBot
 
         // POST https://api.line.me/v2/bot/message/multicast
         // to multiple users
-        public string MulticastMessage(string[] userIDs, string[] msgs, string channelAccessToken)
+        public string MulticastMessage(string[] userIDs, Message[] msgs, string channelAccessToken)
         {
             Models.MulticastMessage.Request body = new Models.MulticastMessage.Request();
             body.To = userIDs;
-            try
-            {
-                body.Messages = Limit5Msg(msgs);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            if (!Is1To5(msgs))
+                throw new Exception("wrong length");
+
+            body.Messages = msgs;
+
 
             string data = JsonConvert.SerializeObject(body);
             return WebRequestHelper.PostLineApi(LINE_URL + "/message/multicast", data, channelAccessToken);
@@ -104,28 +107,14 @@ namespace LineBot
             return profile;
         }
 
-        private Models.WebhookEvents.Message.Text.Message[] Limit5Msg(string[] msgs)
+        private bool Is1To5(object[] msgs)
         {
-            msgs = msgs
-                .Where(m => !string.IsNullOrEmpty(m))
-                .ToArray();
-
             const int MAX = 5;
             int len = msgs.Length;
-            if (len > MAX)
-                len = MAX;
-            else if (len == 0)
-                throw new Exception("no message");
 
-            Models.WebhookEvents.Message.Text.Message[] messages = new Models.WebhookEvents.Message.Text.Message[len];
-            for (int i = 0; i < len; i++)
-            {
-                messages[i] = new Models.WebhookEvents.Message.Text.Message();
-                messages[i].Text = msgs[i];
-                messages[i].Type = "text";
-            }
-
-            return messages;
+            if (len > MAX || len == 0)
+                return false;
+            return true;
         }
     }
 }
