@@ -1,9 +1,9 @@
 ﻿using LineBot.Helper.Reflection;
 using LineBot.Models;
+using LineBot.Models.GroupMember;
 using LineBot.Models.Profile;
 using LineBot.Models.WebhookEvents;
 using LineBot.Models.WebhookEvents.Message;
-using LineBot.Models.WebhookEvents.Message.Text;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -99,12 +99,31 @@ namespace LineBot
         }
 
         // POST https://api.line.me/v2/bot/profile/{userID}
-        // to multiple users
         public Profile GetProfile(string userID, string channelAccessToken)
         {
-            string jsStr = WebRequestHelper.PostLineApi(LINE_URL + "/profile/" + userID, "", channelAccessToken);
+            string jsStr = WebRequestHelper.GetLineApi(LINE_URL + "/profile/" + userID, channelAccessToken);
             Profile profile = JsonConvert.DeserializeObject<Profile>(jsStr);
             return profile;
+        }
+
+        // POST https://api.line.me/v2/bot/message/{messageId}/content
+        public byte[] GetContent(string messageId, string channelAccessToken)
+        {
+            string str = WebRequestHelper.GetLineApi(LINE_URL + "/message/" + messageId + "/content", channelAccessToken);
+
+            return Encoding.Default.GetBytes(str);
+        }
+
+        // POST https://api.line.me/v2/bot/group/{groupID}/members/ids
+        // Get group member user IDs
+        public GroupMember GetGroupMemberID(string groupID, string channelAccessToken, string start = "")
+        {
+            if (!string.IsNullOrEmpty(start))
+                start = "?start=" + start;
+
+            string jsStr = WebRequestHelper.GetLineApi(LINE_URL + "/group/" + groupID + "/members/ids" + start, channelAccessToken);
+            GroupMember gm = JsonConvert.DeserializeObject<GroupMember>(jsStr);
+            return gm;
         }
 
         private bool Is1To5(object[] msgs)

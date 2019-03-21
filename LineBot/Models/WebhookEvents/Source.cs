@@ -18,13 +18,13 @@ namespace LineBot.Models.WebhookEvents
         public string Type;
 
         //ID of the source user.Only included in message events.Not included if the user has not agreed to the Official Accounts Terms of Use.
-        [JsonProperty("userid")]
+        [JsonProperty("userId")]
         public string UserID;
 
-        [JsonProperty("groupid")]
+        [JsonProperty("groupId")]
         public string GroupID;
 
-        [JsonProperty("roomid")]
+        [JsonProperty("roomId")]
         public string RoomID;
     }
 }

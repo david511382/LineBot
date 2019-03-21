@@ -23,8 +23,9 @@ namespace LineBotTest
       ""type"": ""message"",
       ""timestamp"": ""1231321"",
       ""source"": {
-        ""type"": ""user"",
-        ""userId"": ""U4af4980629...""
+        ""type"": ""group"",
+        ""userId"": ""U4af4980629..."",
+        ""groupId"": ""gggg4980629...""
       },
       ""message"": {
         ""id"": ""325708"",
@@ -45,16 +46,44 @@ namespace LineBotTest
         ""type"": ""sticker"",
         ""stickerId"": ""13""
       }
+    },
+    {
+      ""replyToken"": ""0f3779fba3b349968c5d07db31eabf65"",
+      ""type"": ""memberJoined"",
+      ""timestamp"": 1462629479859,
+      ""source"": {
+                    ""type"": ""group"",
+        ""groupId"": ""C4af4980629...""
+      },
+      ""joined"": {
+                    ""members"": [
+                      {
+           ""type"": ""user"",
+                        ""userId"": ""U4af4980629...""
+          },
+          {
+            ""type"": ""user"",
+            ""userId"": ""U91eeaf62d9...""
+          }
+        ]
+      }
     }
   ]
 }";
-            EventRequest result = JsonConvert.DeserializeObject<EventRequest>(data, new WebhookEventConverter()); 
-            Assert.AreEqual(result.Events[1].Source.UserID, "U4af4980629...");
-            Assert.AreEqual(result.Events[0].Message.Type, "text");
+            EventRequest result = JsonConvert.DeserializeObject<EventRequest>(data, new WebhookEventConverter());
+            
+            var ev = (MessageEvent)result.Events[0];
+            Assert.AreEqual(ev.Message.Type, "text");
 
-            LineBot.Models.WebhookEvents.Message.Sticker.StickerMessage sticker = result.Events[1].Message as LineBot.Models.WebhookEvents.Message.Sticker.StickerMessage;
+            ev = (MessageEvent)result.Events[1];
+            Assert.AreEqual(ev.Source.UserID, "U4af4980629...");
+
+            LineBot.Models.WebhookEvents.Message.StickerMessage sticker = ev.Message as LineBot.Models.WebhookEvents.Message.StickerMessage;
             Assert.AreEqual(sticker.StickerID, "13");
             Assert.AreEqual(sticker.Type, "sticker");
+
+            var mjEv = (MemberJoinEvent)result.Events[2];
+            Assert.AreEqual(mjEv.JoinMembers.Sources[1].UserID, "U91eeaf62d9...");
         }
     }
 }

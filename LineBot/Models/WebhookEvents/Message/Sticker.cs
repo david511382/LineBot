@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LineBot.Models.WebhookEvents.Message.Sticker
+namespace LineBot.Models.WebhookEvents.Message
 {
     public class StickerMessage : Message
     {

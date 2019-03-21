@@ -10,7 +10,18 @@ namespace LineBot
 {
     public class WebRequestHelper
     {
-        public static string PostLineApi(string url, string body,string channelAccessToken)
+        public static string GetLineApi(string url, string channelAccessToken)
+        {
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            request.PreAuthenticate = true;
+            request.Headers.Add("Authorization", "Bearer " + channelAccessToken);
+            
+            // 取得迴應數據
+            return GetResponse(request);
+        }
+
+        public static string PostLineApi(string url, string body, string channelAccessToken)
         {
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "POST";
@@ -32,12 +43,20 @@ namespace LineBot
         private static string GetResponse(HttpWebRequest request)
         {
             string result = "";
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+
+            try
             {
-                using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
-                    result = sr.ReadToEnd();
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                    {
+                        result = sr.ReadToEnd();
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
 
             return result;

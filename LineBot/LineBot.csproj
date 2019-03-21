@@ -48,18 +48,32 @@
     <Compile Include="Helper\Reflection\WebhookEventConverter.cs" />
     <Compile Include="Helper\Reflection\MessageConverter.cs" />
     <Compile Include="Models\MulticastMessage\Request.cs" />
+    <Compile Include="Models\GroupMemeber\GroupMember.cs" />
     <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\PushMessage\Request.cs" />
+    <Compile Include="Models\WebhookEvents\Beacon\Beacon.cs" />
+    <Compile Include="Models\WebhookEvents\DeviceULinkEvent.cs" />
+    <Compile Include="Models\WebhookEvents\AccountLinkEvent.cs" />
+    <Compile Include="Models\WebhookEvents\BeaconEvent.cs" />
+    <Compile Include="Models\WebhookEvents\Member\Members.cs" />
+    <Compile Include="Models\WebhookEvents\PostbackEvent.cs" />
+    <Compile Include="Models\WebhookEvents\MemberLeaveEvent.cs" />
+    <Compile Include="Models\WebhookEvents\MemberJoinEvent.cs" />
+    <Compile Include="Models\WebhookEvents\LeaveEvent.cs" />
+    <Compile Include="Models\WebhookEvents\FollowJoinEvent.cs" />
+    <Compile Include="Models\WebhookEvents\MessageEvent.cs" />
     <Compile Include="Models\WebhookEvents\EventRequest.cs" />
-    <Compile Include="Models\WebhookEvents\Message\Audio\Audio.cs" />
-    <Compile Include="Models\WebhookEvents\Message\Location\Location.cs" />
-    <Compile Include="Models\WebhookEvents\Message\Media\Media.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Audio.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Location.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Media.cs" />
     <Compile Include="Models\WebhookEvents\Message\Message.cs" />
-    <Compile Include="Models\WebhookEvents\Message\Sticker\Sticker.cs" />
-    <Compile Include="Models\WebhookEvents\Message\Text\Text.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Sticker.cs" />
+    <Compile Include="Models\WebhookEvents\Message\Text.cs" />
+    <Compile Include="Models\WebhookEvents\Postback\PostBack.cs" />
     <Compile Include="Models\WebhookEvents\Source.cs" />
     <Compile Include="Models\WebhookEvents\Event.cs" />
     <Compile Include="Models\ReplyMessage\Request.cs" />
+    <Compile Include="Models\WebhookEvents\Things\Things.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRequestHelper.cs" />
   </ItemGroup>
@@ -69,10 +83,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\WebhookEvents\Message\Flex\" />
-    <Folder Include="Models\WebhookEvents\Message\Imagemap\" />
-    <Folder Include="Models\WebhookEvents\Message\Template\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

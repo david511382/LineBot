@@ -26,24 +26,24 @@ namespace LineBot.Helper.Reflection
             switch (type)
             {
                 case Message.TEXT_TYPE:
-                    var text = new LineBot.Models.WebhookEvents.Message.Text.TextMessage();
+                    var text = new LineBot.Models.WebhookEvents.Message.TextMessage();
                     serializer.Populate(jo.CreateReader(), text);
                     return text;
                 case Message.IMAGE_TYPE:
                 case Message.VIDEO_TYPE:
-                    var media= new LineBot.Models.WebhookEvents.Message.Media.MediaMessage();
+                    var media= new LineBot.Models.WebhookEvents.Message.MediaMessage();
                     serializer.Populate(jo.CreateReader(), media);
                     return media;
                 case Message.AUDIO_TYPE:
-                    var audio = new LineBot.Models.WebhookEvents.Message.Audio.AudioMessage();
+                    var audio = new LineBot.Models.WebhookEvents.Message.AudioMessage();
                     serializer.Populate(jo.CreateReader(), audio);
                     return audio;
                 case Message.LOCATION_TYPE:
-                    var location = new LineBot.Models.WebhookEvents.Message.Location.LocationMessage();
+                    var location = new LineBot.Models.WebhookEvents.Message.LocationMessage();
                     serializer.Populate(jo.CreateReader(), location);
                     return location;
                 case Message.STICER_TYPE:
-                    var sticker = new LineBot.Models.WebhookEvents.Message.Sticker.StickerMessage();
+                    var sticker = new LineBot.Models.WebhookEvents.Message.StickerMessage();
                     serializer.Populate(jo.CreateReader(), sticker);
                     return sticker;
                 default:

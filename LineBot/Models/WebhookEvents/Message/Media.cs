@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LineBot.Models.WebhookEvents.Message.Media
+namespace LineBot.Models.WebhookEvents.Message
 {
     public class MediaMessage : Message
     {
