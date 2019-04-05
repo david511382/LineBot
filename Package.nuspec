@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>david511382LineBot</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>David</authors>
     <owners>David</owners>
     <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
@@ -18,7 +18,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="LineBot\bin\Debug\LineBot.dll" target="lib\LineBot.dll"></file>
+    <file src="LineBot\bin\Debug\netstandard2.0\LineBot.dll" target="lib\LineBot.dll"></file>
 
     <file src="readme.txt" target=""/>
   </files>
