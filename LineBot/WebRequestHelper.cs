@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 
 namespace LineBot
 {
@@ -16,7 +13,7 @@ namespace LineBot
             request.Method = "GET";
             request.PreAuthenticate = true;
             request.Headers.Add("Authorization", "Bearer " + channelAccessToken);
-            
+
             // 取得迴應數據
             return GetResponse(request);
         }
@@ -54,7 +51,7 @@ namespace LineBot
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 
 namespace LineBot.Helper.Reflection
 {
@@ -31,42 +30,42 @@ namespace LineBot.Helper.Reflection
                     MessageConverter messageConverter = new MessageConverter();
                     object message = messageConverter.ReadJson(reader, typeof(Message), existingValue, serializer);
 
-                    var mEv = new MessageEvent();
+                    MessageEvent mEv = new MessageEvent();
                     serializer.Populate(jo.CreateReader(), mEv);
                     mEv.Message = (Message)message;
                     return mEv;
                 case Event.UNFOLLOW_TYPE:
                 case Event.LEAVE_TYPE:
-                    var ufEv = new Event();
+                    Event ufEv = new Event();
                     serializer.Populate(jo.CreateReader(), ufEv);
                     return ufEv;
                 case Event.POST_BACK_TYPE:
-                    var pbEv = new PostbackEvent();
+                    PostbackEvent pbEv = new PostbackEvent();
                     serializer.Populate(jo.CreateReader(), pbEv);
                     return pbEv;
                 case Event.MEMBER_LEAVE_TYPE:
-                    var mlEv = new MemberLeaveEvent();
+                    MemberLeaveEvent mlEv = new MemberLeaveEvent();
                     serializer.Populate(jo.CreateReader(), mlEv);
                     return mlEv;
                 case Event.MEMBER_JOIN_TYPE:
-                    var mjEv = new MemberJoinEvent();
+                    MemberJoinEvent mjEv = new MemberJoinEvent();
                     serializer.Populate(jo.CreateReader(), mjEv);
                     return mjEv;
                 case Event.JOIN_TYPE:
                 case Event.FOLLOW_TYPE:
-                    var fEv = new FollowJoinEvent();
+                    FollowJoinEvent fEv = new FollowJoinEvent();
                     serializer.Populate(jo.CreateReader(), fEv);
                     return fEv;
                 case Event.DEVICE_UN_LINK_TYPE:
-                    var dulEv = new DeviceULinkEvent();
+                    DeviceULinkEvent dulEv = new DeviceULinkEvent();
                     serializer.Populate(jo.CreateReader(), dulEv);
                     return dulEv;
                 case Event.BEACON_TYPE:
-                    var bEv = new BeaconEvent();
+                    BeaconEvent bEv = new BeaconEvent();
                     serializer.Populate(jo.CreateReader(), bEv);
                     return bEv;
                 case Event.ACCOUNT_LINK_TYPE:
-                    var alEv = new AccountLinkEvent();
+                    AccountLinkEvent alEv = new AccountLinkEvent();
                     serializer.Populate(jo.CreateReader(), alEv);
                     return alEv;
                 default:

@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LineBot.Models.WebhookEvents.Beacon
 {
-    public  class Beacon
+    public class Beacon
     {
         //Hardware ID of the beacon that was detected
         [JsonProperty("hwid")]

@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LineBot.Models.WebhookEvents
 {
@@ -20,7 +15,7 @@ namespace LineBot.Models.WebhookEvents
         public const string BEACON_TYPE = "beacon";
         public const string ACCOUNT_LINK_TYPE = "accountLink";
         public const string DEVICE_UN_LINK_TYPE = "things";
-        
+
         //Identifier for the type of event
         [JsonProperty("type")]
         public string Type;

@@ -1,10 +1,8 @@
 ﻿using LineBot.Models.WebhookEvents;
-using LineBot.Models.WebhookEvents.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 
 namespace LineBot.Helper.Reflection
 {
@@ -26,7 +24,7 @@ namespace LineBot.Helper.Reflection
 
             JArray ja = JArray.Load(reader);
             Event[] events = new Event[ja.Count];
-            for (int i=0;i < ja.Count; i++)
+            for (int i = 0; i < ja.Count; i++)
             {
                 reader = ja[i].CreateReader();
                 MessageEventConverter messageEventConverter = new MessageEventConverter();
@@ -34,7 +32,7 @@ namespace LineBot.Helper.Reflection
                 events[i] = (Event)e;
             }
 
-            var target = new EventRequest();
+            EventRequest target = new EventRequest();
             serializer.Populate(jo.CreateReader(), target);
             target.Events = events;
             return target;

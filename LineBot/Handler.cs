@@ -1,17 +1,13 @@
 ﻿using LineBot.Helper.Reflection;
-using LineBot.Models;
 using LineBot.Models.GroupMember;
 using LineBot.Models.Profile;
 using LineBot.Models.WebhookEvents;
 using LineBot.Models.WebhookEvents.Message;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LineBot
 {
@@ -21,14 +17,8 @@ namespace LineBot
 
         public EventRequest ParseRequest(Stream body)
         {
-            if (body.Length > int.MaxValue)
-                throw new Exception("data too big");
-
-            int dataLen = (int)body.Length;
-            byte[] bodyByte = new byte[dataLen];
-            body.Read(bodyByte, 0, dataLen);
-
-            string bodyStr = Encoding.UTF8.GetString(bodyByte);
+            StreamReader reader = new StreamReader(body);
+            string bodyStr = reader.ReadToEnd();
             EventRequest data;
             try
             {
@@ -56,7 +46,7 @@ namespace LineBot
             Models.ReplyMessage.Request body = new Models.ReplyMessage.Request();
             body.ReplyToken = replyToken;
 
-            if (!Is1To5(msgs))
+            if (!is1To5(msgs))
                 throw new Exception("wrong length");
 
             body.Messages = msgs;
@@ -72,7 +62,7 @@ namespace LineBot
             Models.PushMessage.Request body = new Models.PushMessage.Request();
             body.To = targetID;
 
-            if (!Is1To5(msgs))
+            if (!is1To5(msgs))
                 throw new Exception("wrong length");
 
             body.Messages = msgs;
@@ -88,7 +78,7 @@ namespace LineBot
             Models.MulticastMessage.Request body = new Models.MulticastMessage.Request();
             body.To = userIDs;
 
-            if (!Is1To5(msgs))
+            if (!is1To5(msgs))
                 throw new Exception("wrong length");
 
             body.Messages = msgs;
@@ -126,7 +116,7 @@ namespace LineBot
             return gm;
         }
 
-        private bool Is1To5(object[] msgs)
+        private bool is1To5(object[] msgs)
         {
             const int MAX = 5;
             int len = msgs.Length;
