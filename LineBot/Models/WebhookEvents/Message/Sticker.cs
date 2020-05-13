@@ -8,7 +8,6 @@ namespace LineBot.Models.WebhookEvents.Message
         static StickerMessage()
         {
             GOOD = new StickerMessage();
-            GOOD.Type = "sticker";
             GOOD.PackageID = "1";
             GOOD.StickerID = "13";
         }
@@ -20,5 +19,10 @@ namespace LineBot.Models.WebhookEvents.Message
         // Sticker ID. For a list of sticker IDs for stickers that can be sent with the Messaging API, see the Sticker list.
         [JsonProperty("stickerId")]
         public string StickerID;
+
+        public StickerMessage()
+            : base(STICER_TYPE)
+        {
+        }
     }
 }

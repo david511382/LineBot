@@ -11,5 +11,11 @@ namespace LineBot.Models.WebhookEvents
         //This will include whether the account link was successful or not and a nonce generated from the user ID on the provider's service.
         [JsonProperty("link")]
         public object Link;
+
+        public AccountLinkEvent()
+         : base(ACCOUNT_LINK_TYPE)
+        {
+
+        }
     }
 }

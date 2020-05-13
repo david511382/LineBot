@@ -36,7 +36,7 @@ namespace LineBot.Helper.Reflection
                     return mEv;
                 case Event.UNFOLLOW_TYPE:
                 case Event.LEAVE_TYPE:
-                    Event ufEv = new Event();
+                    Event ufEv = new Event(type);
                     serializer.Populate(jo.CreateReader(), ufEv);
                     return ufEv;
                 case Event.POST_BACK_TYPE:

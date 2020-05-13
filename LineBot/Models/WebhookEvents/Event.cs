@@ -19,5 +19,10 @@ namespace LineBot.Models.WebhookEvents
         //Identifier for the type of event
         [JsonProperty("type")]
         public string Type;
+
+        public Event(string type)
+        {
+            Type = type;
+        }
     }
 }

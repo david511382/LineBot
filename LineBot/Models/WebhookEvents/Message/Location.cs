@@ -20,5 +20,10 @@ namespace LineBot.Models.WebhookEvents.Message
         // Longitude
         [JsonProperty("longitude")]
         public decimal Longitude;
+
+        public LocationMessage()
+            : base(LOCATION_TYPE)
+        {
+        }
     }
 }

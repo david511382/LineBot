@@ -12,5 +12,11 @@ namespace LineBot.Models.WebhookEvents
         //User ID of users who joined
         [JsonProperty("joined")]
         public Members JoinMembers;
+
+        public MemberJoinEvent()
+            : base(MEMBER_JOIN_TYPE)
+        {
+
+        }
     }
 }

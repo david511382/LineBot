@@ -10,5 +10,11 @@ namespace LineBot.Models.WebhookEvents
 
         [JsonProperty("things")]
         public Things.Things Things;
+
+        public DeviceULinkEvent()
+            : base(DEVICE_UN_LINK_TYPE)
+        {
+
+        }
     }
 }

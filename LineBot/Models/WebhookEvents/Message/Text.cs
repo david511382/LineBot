@@ -6,10 +6,14 @@ namespace LineBot.Models.WebhookEvents.Message
     {
         public static readonly string LIGHT_BULB = @"\u0x100077";
 
+        public TextMessage()
+            : base(TEXT_TYPE)
+        {
+        }
+
         public static implicit operator TextMessage(string s)
         {
             TextMessage t = new TextMessage();
-            t.Type = TEXT_TYPE;
             t.Text = s;
 
             return t;

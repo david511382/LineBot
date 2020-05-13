@@ -11,5 +11,10 @@ namespace LineBot.Models.WebhookEvents.Message
         // Length of audio file (milliseconds)
         [JsonProperty("duration")]
         public int Duration;
+
+        public AudioMessage()
+            : base(AUDIO_TYPE)
+        {
+        }
     }
 }

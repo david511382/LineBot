@@ -1,23 +1,21 @@
-using LineBot;
 using LineBot.Helper.Reflection;
 using LineBot.Models.WebhookEvents;
+using LineBot.Models.WebhookEvents.Member;
 using LineBot.Models.WebhookEvents.Message;
 using LineBotTest.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System.IO;
-using System.Security.Authentication.ExtendedProtection;
-using System.Text;
+using System;
 
 namespace LineBotTest
 {
     [TestClass]
-    public class HandlerTest
+    public class JsonConverterTest
     {
         [TestMethod]
-        public void TestParseRequest()
+        public void ConverterTest()
         {
-            const string data = @"
+            const string input = @"
                 {
                     ""events"": [
                         {
@@ -38,7 +36,7 @@ namespace LineBotTest
                         {
                             ""replyToken"": ""0f3779fba5d07d3b349968cb31eab56f"",
                             ""type"": ""message"",
-                            ""timestamp"": ""1231321"",
+                            ""timestamp"": 1231321,
                             ""source"": {
                                 ""type"": ""group"",
                                 ""userId"": ""U4af4980629..."",
@@ -53,7 +51,7 @@ namespace LineBotTest
                         {
                             ""replyToken"": ""8cf9239d56244f4197887e939187e19e"",
                             ""type"": ""message"",
-                            ""timestamp"": ""1231321"",
+                            ""timestamp"": 1231321,
                             ""source"": {
                                 ""type"": ""user"",
                                 ""userId"": ""U4af4980629...""
@@ -89,12 +87,81 @@ namespace LineBotTest
                     ""destination"": ""U9ebdd473d2415d19f58642e1734974f""
                 }
             ";
-            byte[] byteArray = Encoding.ASCII.GetBytes(data);
-            MemoryStream input = new MemoryStream(byteArray);
-            EventRequest want = JsonConvert.DeserializeObject<EventRequest>(data, new WebhookEventConverter());
+            EventRequest want = new EventRequest
+            {
+                Destination = "U9ebdd473d2415d19f58642e1734974f",
+                Events = new Event[] {
+                    new MessageEvent {
+                        ReplyToken="98645878f3dcae996c83b3fb483b7c3e",
+                        Timestamp=1588685138631,
+                        Source=new Source
+                        {
+                            Type="user",
+                            UserID="U16cb23db6619b551c5729daebe6396ee",
+                        },
+                        Message=new TextMessage()
+                        {
+                            Text="some message"
+                        }
+                    },
+                    new MessageEvent {
+                        ReplyToken="0f3779fba5d07d3b349968cb31eab56f",
+                        Timestamp=1231321,
+                        Source=new Source
+                        {
+                            Type="group",
+                            UserID="U4af4980629...",
+                            GroupID="gggg4980629...",
+                        },
+                        Message=new TextMessage()
+                        {
+                            Text = "test message"
+                        }
+                    },
+                    new MessageEvent {
+                        ReplyToken="8cf9239d56244f4197887e939187e19e",
+                        Timestamp=1231321,
+                        Source=new Source
+                        {
+                            Type="user",
+                            UserID="U4af4980629...",
+                        },
+                        Message=new StickerMessage()
+                        {
+                            PackageID ="1",
+                           StickerID="13",
+                        }
+                    },
+                    new MemberJoinEvent{
+                        ReplyToken="0f37b349968c5d79fba307db31eabf65",
+                        JoinMembers = new Members
+                        {
+                            Sources = new Source[]
+                            {
+                                new Source{
+                                    Type="user",
+                                    UserID="U4af4980629..."
+                                },
+                                new Source{
+                                    Type="user",
+                                    UserID="U91eeaf62d9..."
+                                },
+                            },
+                        },
+                    },
+                },
+            };
 
-            Handler handler = new Handler();
-            EventRequest got = handler.ParseRequest(input);
+            EventRequest got;
+            try
+            {
+                got = JsonConvert.DeserializeObject<EventRequest>(input, new WebhookEventConverter());
+            }
+            catch (Exception e)
+            {
+                Assert.Fail(e.Message);
+                return;
+            }
 
             ReflectionCompare.Compare(got, want);
         }

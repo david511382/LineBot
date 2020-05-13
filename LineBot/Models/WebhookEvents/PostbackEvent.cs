@@ -12,5 +12,11 @@ namespace LineBot.Models.WebhookEvents
 
         [JsonProperty("postback")]
         public PostBack Postback;
+
+        public PostbackEvent()
+          : base(POST_BACK_TYPE)
+        {
+
+        }
     }
 }

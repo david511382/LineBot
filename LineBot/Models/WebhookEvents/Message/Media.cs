@@ -8,9 +8,14 @@ namespace LineBot.Models.WebhookEvents.Message
         static MediaMessage()
         {
             DOG = new MediaMessage();
-            DOG.Type = "image";
+
             DOG.OriginalContentURL = "https://farm8.staticflickr.com/7822/46577101464_b8e1a7e1db_b.jpg";
             DOG.PreviewImageURL = "https://farm8.staticflickr.com/7822/46577101464_b8e1a7e1db_m.jpg";
+        }
+
+        public MediaMessage()
+            : base(IMAGE_TYPE)
+        {
         }
 
         // Image URL(Max: 1000 characters) HTTPS JPEG Max: 1024 x 1024 Max: 1 MB

@@ -12,6 +12,11 @@ namespace LineBot.Models.WebhookEvents.Message
         public const string STICER_TYPE = "sticker";
 
         [JsonProperty("type")]
-        public string Type;
+        public readonly string Type;
+
+        public Message(string type)
+        {
+            Type = type;
+        }
     }
 }

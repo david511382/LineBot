@@ -19,5 +19,11 @@ namespace LineBot.Models.WebhookEvents
         //Object containing the contents of the message. Message types include:
         [JsonProperty("message")]
         public Message.Message Message;
+
+        public LeaveEvent()
+           : base(LEAVE_TYPE)
+        {
+
+        }
     }
 }

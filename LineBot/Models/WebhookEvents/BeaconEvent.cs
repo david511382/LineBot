@@ -10,5 +10,11 @@ namespace LineBot.Models.WebhookEvents
 
         [JsonProperty("beacon")]
         public Beacon.Beacon Beacon;
+
+        public BeaconEvent()
+            : base(BEACON_TYPE)
+        {
+
+        }
     }
 }

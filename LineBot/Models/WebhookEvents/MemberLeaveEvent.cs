@@ -12,5 +12,11 @@ namespace LineBot.Models.WebhookEvents
         //User ID of users who left
         [JsonProperty("left")]
         public Members LeftMembers;
+
+        public MemberLeaveEvent()
+            : base(MEMBER_LEAVE_TYPE)
+        {
+
+        }
     }
 }
