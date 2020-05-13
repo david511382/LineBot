@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>david511382LineBot</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>David</authors>
     <owners>David</owners>
     <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
@@ -14,12 +14,10 @@
     <copyright>Copyright 2019</copyright>
     <tags>Tag1 Tag2</tags>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="12.0.1" />
+      <dependency id="Newtonsoft.Json" version="12.0.3" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\netstandard2.0\LineBot.dll" target="lib\LineBot.dll"></file>
-
-    <file src="readme.txt" target=""/>
+    <file src="bin\Release\netcoreapp3.1\LineBot.dll" target="lib\LineBot.dll"></file>
   </files>
 </package>
